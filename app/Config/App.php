@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'http://localhost:8080/';
+	public $baseURL = 'http://localhost:8888/f_app/public';
 
 	/*
 	|--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class App extends BaseConfig
 	| variable so that it is blank.
 	|
 	*/
-	public $indexPage = 'index.php';
+	public $indexPage = '';
 
 	/*
 	|--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ class App extends BaseConfig
 	| If false, no automatic detection will be performed.
 	|
 	*/
-	public $negotiateLocale = false;
+	public $negotiateLocale = true;
 
 	/*
 	|--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ class App extends BaseConfig
 	| found, the first locale will be used.
 	|
 	*/
-	public $supportedLocales = ['en'];
+	public $supportedLocales = ['en','fr'];
 
 	/*
 	|--------------------------------------------------------------------------
@@ -99,7 +99,7 @@ class App extends BaseConfig
 	| dates with the date helper, and can be retrieved through app_timezone()
 	|
 	*/
-	public $appTimezone = 'America/Chicago';
+	public $appTimezone = 'Africa/Accra';
 
 	/*
 	|--------------------------------------------------------------------------

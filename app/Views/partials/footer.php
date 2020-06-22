@@ -92,8 +92,8 @@
     <div class="cd-user-modal-container">
         <!-- this is the container wrapper -->
         <ul class="cd-switcher">
-            <li><a href="#0">Sign in</a></li>
-            <li><a href="#1">New account</a></li>
+            <li><a href="#0"><?php echo lang('Front.sign_in');?></a></li>
+            <li><a href="#1"><?php echo lang('Front.new_account');?></a></li>
 
         </ul>
 
@@ -101,21 +101,21 @@
             <!-- log in form -->
             <form class="cd-form">
                 <p class="fieldset">
-                    <label class="image-replace cd-email" for="signin-email">E-mail</label>
-                    <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
+                    <label class="image-replace cd-email" for="signin-email"><?php echo lang('Front.email');?></label>
+                    <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="<?php echo lang('Front.email');?>">
                 </p>
                 <p class="fieldset">
-                    <label class="image-replace cd-password" for="signin-password">Password</label>
-                    <input class="full-width has-padding has-border" id="signin-password" type="password" placeholder="Password">
+                    <label class="image-replace cd-password" for="signin-password"><?php echo lang('Front.password');?></label>
+                    <input class="full-width has-padding has-border" id="signin-password" type="password" placeholder="<?php echo lang('Front.password');?>">
                 </p>
                 <p class="fieldset">
                     <input type="checkbox" id="remember-me" checked>
-                    <label for="remember-me">Remember me</label>
+                    <label for="remember-me"><?php echo lang('Front.remember');?></label>
                 </p>
 
 
                 <div class="login-btn">
-                    <button type="submit" value="Login" class="btn btn-blue btn-effect disabled" style="background-color: dodgerblue">Login</button>
+                    <button type="submit" value="Login" class="btn btn-blue btn-effect disabled" style="background-color: dodgerblue"><?php echo lang('Front.login');?></button>
                 </div>
             </form>
         </div>
