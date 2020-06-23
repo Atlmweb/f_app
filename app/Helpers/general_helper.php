@@ -69,3 +69,22 @@ if(!function_exists('make_menu')){
         return $str;
     }
 }
+
+//return string to share content
+if(!function_exists('share')){
+    function share($url,$text){
+        $enc_url = urlencode($url);
+        $enc_text = urlencode($text);
+        $str = <<<EOT
+   <a href="whatsapp://send?text=$url. $text" class="btn btn-green btn-effect"><i class="fa fa-whatsapp"></i> </a>
+                            <a href="https://twitter.com/intent/tweet?url=$enc_url&text=$enc_text" class="btn btn-blue btn-effect"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.facebook.com/sharer.php?u=$enc_url" class="btn btn-primary btn-effect"><i class="fa fa-facebook"></i></a>
+                            
+
+EOT;
+        return $str;
+
+    }
+
+
+}

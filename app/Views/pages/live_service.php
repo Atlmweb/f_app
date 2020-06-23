@@ -17,11 +17,7 @@
                     <div class="row">
                         <div class="blog-post-title pt30 pb10 text-center">
                             <h3><a href="#">Invite Someone for this service </a></h3>
-                            <a href="whatsapp://send?text=https://live.christembassynungua.org" class="btn btn-green btn-effect"><i class="fa fa-whatsapp"></i> </a>
-                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flive.christembassynungua.org&text=I%20am%20inviting%20you%20to%20be%20a%20bart%20of%20our%20service%2C%20live%20now!" class="btn btn-blue btn-effect"><i class="fa fa-twitter"></i></a>
-                            <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Flive.christembassynungua.org" class="btn btn-primary btn-effect"><i class="fa fa-facebook"></i></a>
-                            <a href="https://www.instagram.com/cenungua/" class="btn btn-danger btn-effect"><i class="fa fa-instagram"></i></a>
-
+                            <?php echo share('https://live.christembassynungua.org',lang('Front.join_service'));?>
                         </div>
 
                     </div>

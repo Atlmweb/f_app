@@ -128,7 +128,8 @@
                 <p class="fieldset">
 
                     <select name="currency" class="selectpicker bootstrap-select table-bordered" required>
-                        <option value="">Select title</option>
+
+                        <option value=""><?php echo lang('Front.select');?></option>
                         <option value="brother">Brother</option>
                         <option value="brother">Brother</option>
                         <option value="sister">Sister</option>
