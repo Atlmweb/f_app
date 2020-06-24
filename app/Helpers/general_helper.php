@@ -88,3 +88,49 @@ EOT;
 
 
 }
+
+//where should be an array
+if(!function_exists('db_where')){
+    function db_where(array $where): string {
+        $str = ''; //initialize $str variable
+
+        //case 1, associative array a => b -> a = b
+        foreach ($where as $key => $val) {
+            if(is_numeric($key)){
+                $str .= $val. ' AND ';
+            } else {
+                $str .= $key .' = '.$val. ' AND ';
+            }
+        }
+        return substr($str,0,-4); //removes the last 4 (-4) characters from string
+    }
+}
+
+
+
+
+
+
+
+//return sql object result
+
+if(!function_exists('ask_db')){
+    function ask_db($fields, $from, array $where =[], string $limit ='',string $group ='', string $order_field ='', string $order_dxn ='DESC', $return='array'){
+        $db = \CodeIgniter\Database\Config::connect();
+
+        $f    = (is_array($fields))? implode(',',$fields): $fields;
+        $t    = (is_array($from)) ? implode(',',$from): $from;
+        $w    = (!empty($where)) ? ' WHERE '.db_where($where)      : '';
+        $g    = (!empty($group)) ? ' GROUP BY '.$group             : '';
+        $l    = (!empty($limit)) ? ' LIMIT '.$limit                : '';
+        $o    = (!empty($order_field)) ? ' ORDER BY '.$order_field : '';
+        $d    = (!empty($order_field)) ? $order_dxn               : '';
+
+        $sql = 'SELECT '.$f.' FROM '.$t.$w.$g.$o.$d.$l;
+
+        $q = $db->query($sql)->getResult($return);
+
+        return $q;
+    }
+}
+

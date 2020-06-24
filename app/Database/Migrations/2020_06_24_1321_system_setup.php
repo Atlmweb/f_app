@@ -70,7 +70,7 @@ class SystemSetup extends \CodeIgniter\Database\Migration {
             'gender'             => ['type' => 'ENUM("male","female")',  'null'=>TRUE],
             'is_saved'           => ['type' => 'ENUM("yes","no")',  'null'=>TRUE],
             'is_baptised'        => ['type' => 'ENUM("yes","no")',  'null'=>TRUE],
-            'marital_status'     => ['type' => 'INT', 'constraint'=>3, 'null'=>TRUE],
+            'marital_status'     => ['type' => 'VARCHAR', 'constraint'=>20, 'null'=>TRUE],
             'created_at'         => ['type' => 'DATETIME'],
             'updated_at'         => ['type' => 'TIMESTAMP'],
         ]);
