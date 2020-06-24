@@ -26,26 +26,26 @@ class UsersModel extends Model
         'church_id'        => 'required|integer',
         'customer_id'      => 'required|integer',
         'title'            => 'required|max-length[50]',
-        'first_name'       => 'required|max-length[60]',
-        'last_name'        => 'required|max-length[60]',
-        'birth_date'       => 'required|valid-date',
-        'phone_number'     => 'required|max-length[20]',
-        'email_address'    => 'required|max-length[255]',
-        'password'         => 'required|max-length[255]',
-        'random_key'       => 'required|max-length[255]',
-        'random_key_expiry'=> 'required|valid-date',
-        'location_address' => 'required|max-length[255]',
+        'first_name'       => 'trim|required|max-length[60]',
+        'last_name'        => 'trim|required|max-length[60]',
+        'birth_date'       => 'trim|valid_date[Y-m-d H:i:s]',
+        'phone_number'     => 'trim|max-length[20]',
+        'email_address'    => 'required|valid_email|max-length[150],is_unique[ff_users.email_address]',
+        'password'         => 'trim|required|max_length[255]',
+        'random_key'       => 'max_length[255]',
+        'random_key_expiry'=> 'required|valid_date[Y-m-d H:i:s]',
+        'location_address' => 'trim|required|max_length[255]',
         'country_id'       => 'required|integer',
-        'gender'           => 'required|in-list[male,female]',
-        'is_saved'         => 'required|in-list[yes,no]',
-        'is_baptised'      => 'required|in-list[yes,no]',
-        'marital_status'   => 'required|integer',
-        'created_at'       => 'required|valid-date',
+        'gender'           => 'required|in_list[male,female]',
+        'is_saved'         => 'required|in_list[yes,no]',
+        'is_baptised'      => 'required|in_list[yes,no]',
+        'marital_status'   => 'in_list[married,single,divorced,widowed]',
+        'created_at'       => 'required|valid_date',
 
     ];
 
     protected $validationMessages = [
-        'email'        => [
+        'email_address'        => [
             'is_unique' => 'Sorry. That email has already been taken. Please choose another.'
         ]
     ];
