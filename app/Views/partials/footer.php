@@ -99,14 +99,14 @@
 
         <div id="cd-login">
             <!-- log in form -->
-            <form class="cd-form">
+            <form class="cd-form" method="post" action="login">
                 <p class="fieldset">
                     <label class="image-replace cd-email" for="signin-email"><?php echo lang('Front.email');?></label>
-                    <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="<?php echo lang('Front.email');?>">
+                    <input name="username" class="full-width has-padding has-border" id="signin-email" type="email" placeholder="<?php echo lang('Front.email');?>" required>
                 </p>
                 <p class="fieldset">
                     <label class="image-replace cd-password" for="signin-password"><?php echo lang('Front.password');?></label>
-                    <input class="full-width has-padding has-border" id="signin-password" type="password" placeholder="<?php echo lang('Front.password');?>">
+                    <input name="password" class="full-width has-padding has-border" id="signin-password" type="password" placeholder="<?php echo lang('Front.password');?>" required>
                 </p>
                 <p class="fieldset">
                     <input type="checkbox" id="remember-me" checked>
@@ -115,7 +115,7 @@
 
 
                 <div class="login-btn">
-                    <button type="submit" value="Login" class="btn btn-blue btn-effect disabled" style="background-color: dodgerblue"><?php echo lang('Front.login');?></button>
+                    <button type="submit" value="Login" class="btn btn-blue btn-effect" style="background-color: dodgerblue"><?php echo lang('Front.login');?></button>
                 </div>
             </form>
         </div>
@@ -123,11 +123,15 @@
 
         <div id="cd-signup">
             <!-- sign up form -->
-            <form class="cd-form">
+
+
+                <?php echo form_open('register',['method'=>'post','class'=>'cd-form']);?>
+
+                <?php echo $_SESSION['info'] ?? '' //TODO make church id read from config file?>
 
                 <p class="fieldset">
 
-                    <select name="currency" class="selectpicker bootstrap-select table-bordered" required>
+                    <select name="title" class="selectpicker bootstrap-select table-bordered" required>
 
                         <option value=""><?php echo lang('Front.select');?></option>
                         <option value="brother">Brother</option>
@@ -141,30 +145,34 @@
                 </p>
 
                 <p class="fieldset">
+                    <input type="hidden" name="church_id" value="237">
+                    <input type="hidden" name="customer_id" value="1">
+
+                </p>
                     <label class="image-replace cd-username">Surname</label>
-                    <input class="full-width has-padding has-border" type="text" name="surname" placeholder="Surname" autocomplete="off">
+                    <input class="full-width has-padding has-border" type="text" name="last_name" placeholder="Surname" autocomplete="off" required>
 
                 </p>
 
                 <p class="fieldset">
-                    <label class="image-replace cd-username">Other Names</label>
-                    <input class="full-width has-padding has-border" type="text" name="name" placeholder="Other Names" autocomplete="off">
+                    <label class="image-replace cd-username">First Name</label>
+                    <input class="full-width has-padding has-border" type="text" name="first_name" placeholder="First Name" autocomplete="off" required>
 
                 </p>
                 <p class="fieldset">
                     <label class="image-replace cd-email" for="signup-email">E-mail</label>
-                    <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
+                    <input name="email_address" class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" required>
                 </p>
                 <p class="fieldset">
                     <label class="image-replace cd-password" for="signup-password">Password</label>
-                    <input class="full-width has-padding has-border" id="signup-password" type="password" placeholder="Password">
+                    <input name="password" class="full-width has-padding has-border" id="signup-password" type="password" placeholder="Password">
                 </p>
                 <p class="fieldset">
-                    <input type="checkbox" id="accept-terms">
+                    <input type="checkbox" id="accept-terms" name="accept_terms" required>
                     <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
                 </p>
                 <p class="fieldset">
-                    <button class="btn btn-blue btn-effect" type="submit" value="Create account" style="background-color: dodgerblue" disabled>Create Account</button>
+                    <button class="btn btn-blue btn-effect" type="submit" value="Create account" style="background-color: dodgerblue" >Create Account</button>
                 </p>
             </form>
         </div>

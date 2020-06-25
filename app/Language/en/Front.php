@@ -22,5 +22,11 @@ return [
     'email'          => 'Email address',
     'password'       => 'Password',
     'remember'       => 'Remember me',
-    'join_service'   => 'Join us for a wonderful service'
+    'join_service'   => 'Join us for a wonderful service',
+    'select'         => 'Select',
+    'give'           => 'Give',
+    'services'       => 'Services',
+    'gallery'        => 'Gallery',
+    'forum'         => 'Forum',
+    'register'      => 'Register'
 ];
