@@ -44,7 +44,7 @@
 		<!-- Directory containing the Paths config file -->
 		<const name="CONFIGPATH" value="./app/Config/"/>
 
-		<!-- Directory containing the front controller (index.php) -->
+		<!-- Directory containing the front controllmaster.php.php) -->
 		<const name="PUBLICPATH" value="./public/"/>
 
 		<!-- Database configuration -->

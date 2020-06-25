@@ -100,8 +100,8 @@ interface RouterInterface
 	//--------------------------------------------------------------------
 
 	/**
-	 * Sets the value that should be used to match the index.php file. Defaults
-	 * to index.php but this allows you to modify it in case your are using
+	 * Sets the value that should be used to match the master.php file. Defaults
+	 * to master.php but this allows you to modify it in case your are using
 	 * something like mod_rewrite to remove the page. This allows you to set
 	 * it a blank.
 	 *

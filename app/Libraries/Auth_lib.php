@@ -6,6 +6,7 @@ class Auth_lib
 
     public function __construct()
     {
+        $this->session = \Config\Services::session();
         //$this->user = $user_id;
 
     }
@@ -48,6 +49,11 @@ class Auth_lib
         return TRUE;
     }
 
+
+    public function login_check(){
+
+        return isset($_SESSION['logged_in']) ? TRUE : FALSE;
+    }
 
 
 

@@ -127,7 +127,7 @@
 
                 <?php echo form_open('register',['method'=>'post','class'=>'cd-form']);?>
 
-                <?php echo $_SESSION['info'] ?? '' //TODO make church id read from config file?>
+                <?php info()//TODO make church id read from config file?>
 
                 <p class="fieldset">
 
@@ -148,6 +148,7 @@
                     <input type="hidden" name="church_id" value="237">
                     <input type="hidden" name="customer_id" value="1">
 
+
                 </p>
                     <label class="image-replace cd-username">Surname</label>
                     <input class="full-width has-padding has-border" type="text" name="last_name" placeholder="Surname" autocomplete="off" required>
@@ -163,6 +164,11 @@
                     <label class="image-replace cd-email" for="signup-email">E-mail</label>
                     <input name="email_address" class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" required>
                 </p>
+
+                  <p class="fieldset">
+                <label class="image-replace cd-email" for="signup-email">Phone number</label>
+                <input name="phone_number" class="full-width has-padding has-border" id="signup-email" type="tel" placeholder="Phone number" required>
+                 </p>
                 <p class="fieldset">
                     <label class="image-replace cd-password" for="signup-password">Password</label>
                     <input name="password" class="full-width has-padding has-border" id="signup-password" type="password" placeholder="Password">

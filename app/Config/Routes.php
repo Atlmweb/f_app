@@ -36,6 +36,7 @@ $routes->post('login', 'Home::login');
 $routes->get('register', 'Home::register');
 $routes->post('register', 'Home::register');
 $routes->get('logout', 'Home::logout');
+$routes->get('dashboard', 'Home::dashboard');
 
 $routes->get('member', 'Member::dashboard');
 $routes->get('client', 'Client::dashboard');

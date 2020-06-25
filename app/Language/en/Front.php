@@ -28,5 +28,8 @@ return [
     'services'       => 'Services',
     'gallery'        => 'Gallery',
     'forum'         => 'Forum',
-    'register'      => 'Register'
+    'register'      => 'Register',
+    'reg_success'   => 'Registration is successful, pls check your email to complete the process',
+    'dashboard'     => 'Dashboard'
+
 ];
