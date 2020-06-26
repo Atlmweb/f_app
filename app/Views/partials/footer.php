@@ -1,6 +1,4 @@
-<?php
 
-?>
 
 <!-- =============== Start of Footer 1 =============== -->
 <footer class="footer1">

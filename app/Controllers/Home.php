@@ -7,11 +7,13 @@ use Auth_lib;
 class Home extends BaseController
 {
     public $menus;
+    public $church;
 
     public function __construct(){
         $this->session = \Config\Services::session();
 
         $data['menu_items'] =  ['home','jesus','services','gallery','contact'];
+        $this->church = $_SESSION['logged_in']['church_id'] ?? '';
 
 
         if(isset($_SESSION['logged_in'])){
@@ -20,7 +22,7 @@ class Home extends BaseController
                 $data['menu_items']['admin']    =  ['church_service','givings','members','first_timers','new_converts','f_school'];
             }
 
-            //load added stuff for logged in user: member and dmin
+            //load added stuff for logged in user: member and admin
             if(($_SESSION['logged_in']['level']==='MEMBER') || ($_SESSION['logged_in']['level'] ==='ADMIN')){
                 $data['menu_items']['accounts'] =  ['dashboard','give','givings','password_change','edit_profile','logout'];
             }
@@ -32,10 +34,25 @@ class Home extends BaseController
     }
 
     public function dashboard(){
+        $where = ['church_id'=>$this->church];
+        $q = ask_db('service_title, service_date, stream_url,service_notes','ff_services',$where,1,'','service_date');
+
         $data = $this->menus;
+
+        if(!empty($q)) {
+            $date = nice_date($q[0]['service_date']);
+            $data['service_title']  = $q[0]['service_title'];
+            $data['service_date']   = $date;
+            //$data['stream_url']     = youtube($q[0]['stream_url']);
+            $data['stream_url']     = youtube('https://youtu.be/a5M6_9iMU24');
+            $data['service_notes']  = $q[0]['service_notes'];
+        }
+
         $data['title'] = $_SESSION['logged_in']['name'] ?? '';
 
-        return view('master',$data);
+        echo view('partials/header',$data);
+        echo view('dashboard',$data);
+        echo view('partials/footer',$data);
     }
 
 	public function index()

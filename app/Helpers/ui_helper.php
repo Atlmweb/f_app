@@ -34,3 +34,9 @@ if(!function_exists('success')){
 
     }
 }
+
+if(!function_exists('youtube')){
+    function youtube($video_url){
+        return substr($video_url,-11,50);
+    }
+}

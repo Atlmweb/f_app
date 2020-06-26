@@ -115,7 +115,7 @@ if(!function_exists('db_where')){
 //return sql object result
 
 if(!function_exists('ask_db')){
-    function ask_db($fields, $from, array $where =[], string $limit ='',string $group ='', string $order_field ='', string $order_dxn ='DESC', $return='array'){
+    function ask_db($fields, $from, array $where =[], string $limit ='',string $group ='', string $order_field ='', string $order_dxn =' DESC', $return='array'){
         $db = \CodeIgniter\Database\Config::connect();
 
         $f    = (is_array($fields))? implode(',',$fields): $fields;
@@ -131,6 +131,24 @@ if(!function_exists('ask_db')){
         $q = $db->query($sql)->getResult($return);
 
         return $q;
+    }
+}
+
+
+/*
+ * Produces a nice Date of the format Monday, 29 Aug 2017
+ */
+if(!function_exists('nice_date')){
+    function nice_date($date){
+        $act     = new DateTime($date);
+
+        $lang = 'en';
+
+        $formatter = new IntlDateFormatter($lang, IntlDateFormatter::FULL,
+            IntlDateFormatter::NONE, 'Africa/Accra', IntlDateFormatter::GREGORIAN,"E, d MMM, y");
+        $str = $formatter->format($act);
+
+        return $str;
     }
 }
 
