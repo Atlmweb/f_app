@@ -38,7 +38,7 @@
 
                     <!-- Job Company Image -->
                     <div class="col-md-12">
-                        <h1><?=$service_title?></h1>
+                        <h2><?=$service_title?></h2>
                         <h4><?=$service_date?></h4>
                     </div>
 
@@ -87,83 +87,28 @@
 
                     <h4 class="uppercase">Share this Service</h4>
 
+
                     <!-- Start of Social Media ul -->
                     <ul class="social-btns list-inline mt20">
-                        <!-- Social Media -->
-                        <li>
-                            <a href="#" class="social-btn-roll facebook transparent">
-                                <div class="social-btn-roll-icons">
-                                    <i class="social-btn-roll-icon fa fa-facebook"></i>
-                                    <i class="social-btn-roll-icon fa fa-facebook"></i>
-                                </div>
-                            </a>
-                        </li>
-
-                        <!-- Social Media -->
-                        <li>
-                            <a href="#" class="social-btn-roll twitter transparent">
-                                <div class="social-btn-roll-icons">
-                                    <i class="social-btn-roll-icon fa fa-twitter"></i>
-                                    <i class="social-btn-roll-icon fa fa-twitter"></i>
-                                </div>
-                            </a>
-                        </li>
-
-                        <!-- Social Media -->
-                        <li>
-                            <a href="#" class="social-btn-roll whatsapp transparent">
-                                <div class="social-btn-roll-icons">
-                                    <i class="social-btn-roll-icon fa fa-whatsapp"></i>
-                                    <i class="social-btn-roll-icon fa fa-whatsapp"></i>
-                                </div>
-                            </a>
-                        </li>
+                        <?php echo share('https://live.christembassynungua.org', $service_date.' Will bless you tremendously')?>
                     </ul>
                     <!-- End of Social Media ul -->
 
-
-
-                    <ul class="job-overview nopadding mt40 pre-scrollable">
-                        <li>
-                            <h5><i class="fa fa-user-circle"></i> Brother Samuel:</h5>
-                            <p>Glory be to God, i just received my healing</p>
-                            <span class="text-muted text-gray">Posted 1 year ago</span>
-                        </li>
-
-
-                        <li>
-                            <h5><i class="fa fa-user-circle"></i>Sister Faustina:</h5>
-                            <p>Glory be to God, i am moving forward in every area of my life</p>
-                            <span class="text-muted text-gray">Posted 1 hour ago</span>
-                        </li>
-
-                        <li>
-                            <h5><i class="fa fa-user-circle"></i>Sister Faustina:</h5>
-                            <p>Glory be to God, i am moving forward in every area of my life</p>
-                            <span class="text-muted text-gray">Posted 1 hour ago</span>
-                        </li>
-
-                        <li>
-                            <h5><i class="fa fa-user-circle"></i>Sister Faustina:</h5>
-                            <p>Glory be to God, i am moving forward in every area of my life</p>
-                            <span class="text-muted text-gray">Posted 1 hour ago</span>
-                        </li>
-
-
-
-
+                    <ul class="job-overview nopadding mtb20 pre-scrollable" id="message-container">
 
                     </ul>
-                    <ul class="job-overview nopadding mt40>
+                    <ul class="job-overview nopadding mt20">
                         <li>
-                            <form action="changeme" method="post">
-                                <textarea class="form-control" placeholder="Comment"></textarea>
+                            <form action="#" method="post" id="send_comment">
+                                <input value="<?=$_SESSION['logged_in']['name'];?>" name="name" type="hidden">
+                                <input value="<?=$service_id;?>" name="sid" type="hidden">
+                                <textarea id="msg"  name="msg" class="form-control" placeholder="Comment" required></textarea>
                             </form>
                         </li>
                     </ul>
 
                     <div class="mt20">
-                        <a href="#" class="btn btn-blue btn-effect">Comment</a>
+                        <a id="btn_send_msg" href="#" class="btn btn-blue btn-effect">Comment</a>
                     </div>
 
                 </div>
@@ -185,15 +130,55 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+        <h4 class="modal-title">Sow a seed</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+         <?php echo $this->include('pages/giving_form')?>
     </div>
 
   </div>
 </div>
+
+    <script type="text/javascript">
+
+
+        function getMessages(){
+            var id = jQuery('.message-list:last-child').attr("id");
+            if(!id) id = 0;
+
+            jQuery.get("home/comments/"+id,function(data) {
+                if (data) {
+                    jQuery("#message-container")
+                        .append(data)
+                        .animate({
+                            scrollTop: jQuery("#message-container").prop("scrollHeight")
+                        }, 1000);
+                }
+
+                setTimeout(function(){
+                    getMessages();
+                }, 4000);
+            })
+        }
+
+        setTimeout(function(){
+            getMessages();
+
+            $("#btn_send_msg").on("click",function(e){
+                e.preventDefault();
+
+                $.ajax({
+                    url: 'home/post_comment',
+                    type: 'post',
+                    dataType: 'json',
+                    data: $('#send_comment').serialize(),
+                    success: function(data) {
+                        $("#msg").val("")
+                    }
+                });
+            })
+
+
+        },2000)
+
+    </script>

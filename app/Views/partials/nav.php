@@ -13,7 +13,7 @@
     <!-- Login Menu Item -->
     <?php if(!isset($_SESSION['logged_in'])) { ?>
     <li class="menu-item login-btn">
-        <a id="modal_trigger" href="javascript:void(0)" role="button" class="disabled"><i class="fa fa-lock"></i>login</a>
+        <a id="modal_trigger" href="javascript:void(0)" role="button" class="disabled"><i class="fa fa-lock"></i>login/ Signup</a>
     </li>
 
     <?php }?>

@@ -7,12 +7,12 @@
 
             <!-- Column -->
             <div class="col-md-10 col-sm-9 col-xs-12">
-                <h3 class="text-white">Sunday service 21st June 2020 with Pastor Earnest</h3>
+                <h3 class="text-white">Let the Lord be magnified which hath pleasure in the prosperity of his servant. Ps 35:27</h3>
             </div>
 
             <!-- Column -->
             <div class="col-md-2 col-sm-3 col-xs-12">
-                <a href="#" class="btn btn-blue btn-effect disabled">Invite Someone</a>
+                <a href="#" class="btn btn-blue btn-effect disabled">Learn the basics</a>
             </div>
 
         </div>
@@ -55,7 +55,7 @@
                 <h5 class="uppercase text-blue pt40">step 2</h5>
                 <h3 class="pb20">Join the first flight</h3>
                 <p>Before this present world comes to an end, Christians will first be raptured. The time is short, and the coming of the Lord is closer than ever.</p>
-                <a href="#" class="btn btn-blue btn-effect disabled">Sign up now!</a>
+                <a href="register" class="btn btn-blue btn-effect">Sign up now!</a>
             </div>
             <!-- End of Second Column -->
 
