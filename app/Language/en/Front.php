@@ -27,9 +27,21 @@ return [
     'give'           => 'Give',
     'services'       => 'Services',
     'gallery'        => 'Gallery',
-    'forum'         => 'Forum',
-    'register'      => 'Register',
-    'reg_success'   => 'Registration is successful, pls check your email to complete the process',
-    'dashboard'     => 'Dashboard'
+    'forum'          => 'Forum',
+    'register'       => 'Register',
+    'reg_success'    => 'Registration is successful, pls check your email to complete the process',
+    'dashboard'      => 'Dashboard',
+    'select_cat'     => 'Select Purpose',
+    'get_involved'   =>'Get involved',
+    'videos'         => 'Videos',
+    'new_service'    => 'Create Service',
+    'service_list'   => 'Services',
+    'users'         => 'List of users',
+    'first_timers'  => 'First timers',
+    'new_converts'  => 'New converts',
+    'f_school'      => 'Foundation school',
+    'admin'         => 'Admin'
+
 
 ];
+
