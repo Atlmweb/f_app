@@ -1,6 +1,6 @@
 <?php
 
-//header.php
+
 
 ?>
 
@@ -27,16 +27,18 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,700,800|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
 
     <!-- CSS links -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/bsdp/css/bootstrap-datepicker.css">
 
 
-    <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/css/swiper.min.css">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -56,7 +58,7 @@
 
             <!-- Logo -->
             <div class="col-md-2 col-sm-6 col-xs-8 nopadding">
-                <a class="navbar-brand nomargin" href="index.html"><img src="images/logo_ce.svg" alt="logo"></a>
+                <a class="navbar-brand nomargin" href="home"><img src="<?=base_url()?>/images/logo_ce.svg" alt="logo"></a>
                 <!-- INSERT YOUR LOGO HERE -->
             </div>
 

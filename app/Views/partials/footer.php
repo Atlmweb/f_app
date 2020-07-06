@@ -1,6 +1,4 @@
-<?php
 
-?>
 
 <!-- =============== Start of Footer 1 =============== -->
 <footer class="footer1">
@@ -100,6 +98,7 @@
         <div id="cd-login">
             <!-- log in form -->
             <form class="cd-form" method="post" action="login">
+                <p class="text-danger">If you had an account on this site before 28th June 2020, you will have to create a new account with the same email address</p>
                 <p class="fieldset">
                     <label class="image-replace cd-email" for="signin-email"><?php echo lang('Front.email');?></label>
                     <input name="username" class="full-width has-padding has-border" id="signin-email" type="email" placeholder="<?php echo lang('Front.email');?>" required>
@@ -127,14 +126,13 @@
 
                 <?php echo form_open('register',['method'=>'post','class'=>'cd-form']);?>
 
-                <?php info()//TODO make church id read from config file?>
+                <?php msg()//TODO make church id read from config file?>
 
                 <p class="fieldset">
 
                     <select name="title" class="selectpicker bootstrap-select table-bordered" required>
 
                         <option value=""><?php echo lang('Front.select');?></option>
-                        <option value="brother">Brother</option>
                         <option value="brother">Brother</option>
                         <option value="sister">Sister</option>
                         <option value="pastor">Pastor</option>
@@ -194,22 +192,33 @@
 
 
 <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
-<script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap-select.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/jquery.ajaxchimp.js"></script>
-<script src="js/jquery.countTo.js"></script>
-<script src="js/jquery.inview.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/jquery.easypiechart.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/tinymce/tinymce.min.js"></script>
-<script src="js/countdown.js"></script>
-<script src="js/isotope.min.js"></script>
-<script src="js/custom.js"></script>
+<script src="<?=base_url()?>/js/jquery-3.1.1.min.js"></script>
+<script src="<?=base_url()?>/js/bootstrap.min.js"></script>
+<script src="<?=base_url()?>/js/bootstrap-select.min.js"></script>
+<script src="<?=base_url()?>/js/swiper.min.js"></script>
+<script src="<?=base_url()?>/js/jquery.ajaxchimp.js"></script>
+<script src="<?=base_url()?>/js/jquery.countTo.js"></script>
+<script src="<?=base_url()?>/js/jquery.inview.min.js"></script>
+<script src="<?=base_url()?>/js/jquery.magnific-popup.min.js"></script>
+<script src="<?=base_url()?>/js/jquery.easypiechart.min.js"></script>
+<script src="<?=base_url()?>/js/jquery-ui.min.js"></script>
+<script src="<?=base_url()?>/js/owl.carousel.min.js"></script>
+<script src="<?=base_url()?>/js/tinymce/tinymce.min.js"></script>
+<script src="<?=base_url()?>/js/countdown.js"></script>
+<script src="<?=base_url()?>/js/isotope.min.js"></script>
+<script src="<?=base_url()?>/js/custom.js"></script>
+<script src="<?=base_url()?>/bsdp/js/bootstrap-datepicker.js"></script>
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.15/api/row().show().js"></script>
+
+
+<script>
+    $(document).ready( function () {
+        $('#example').DataTable();
+    } );
+</script>
 </body>
 
 </html>

@@ -1,4 +1,20 @@
+<section class="get-started ptb30">
+    <div class="container">
+        <div class="row ">
 
+            <!-- Column -->
+            <div class="col-md-10 col-sm-9 col-xs-12">
+                <h3 class="text-white">Register to be a part of our family, join a group, attend foundation school and be notified whenever we are live </h3>
+            </div>
+
+            <!-- Column -->
+            <div class="col-md-2 col-sm-3 col-xs-12">
+                <a href="#" class="btn btn-blue btn-effect">Learn more</a>
+            </div>
+
+        </div>
+    </div>
+</section>
 
     <!-- ===== Start of Login - Register Section ===== -->
     <section class="ptb80" id="register">
@@ -13,17 +29,11 @@
                         <li role="presentation" class="active">
                             <a href="#personal" aria-controls="personal" role="tab" data-toggle="tab" aria-expanded="true">
                                 <h6>Personal Account</h6>
-                                <span>I'm looking for a job</span>
+                                <span>If you had an account on this site before 28th June 2020, you will have to create a new account with that same email address</span>
                             </a>
                         </li>
 
-                        <!-- Company Account Tab -->
-                        <li role="presentation" class="">
-                            <a href="#company" aria-controls="company" role="tab" data-toggle="tab" aria-expanded="false">
-                                <h6>Company Account</h6>
-                                <span>We are hiring</span>
-                            </a>
-                        </li>
+
                     </ul>
                     <!-- End of Nav Tabs -->
 
@@ -34,137 +44,70 @@
 
                         <!-- Start of Tabpanel for Personal Account -->
                         <div role="tabpanel" class="tab-pane active" id="personal">
-                            <div class="row">
-                                <div class="col-md-8 col-md-offset-2">
+                            <div id="cd-signusp">
+                                <!-- sign up form -->
 
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Full Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
 
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control">
-                                    </div>
+                                <?php echo form_open('register',['method'=>'post','class'=>'cd-form']);?>
 
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>E-mail</label>
-                                        <input type="email" class="form-control">
-                                    </div>
+                                <?php msg()//TODO make church id read from config file?>
 
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" class="form-control">
-                                    </div>
+                                <p class="fieldset">
 
-                                    <!-- Form Group -->
-                                    <div class="form-group mb30">
-                                        <label>Confirm Password</label>
-                                        <input type="password" class="form-control">
-                                    </div>
+                                    <select name="title" class="selectpicker bootstrap-select table-bordered" required>
 
-                                    <!-- Form Group -->
-                                    <div class="form-group text-center">
-                                        <input type="checkbox" id="agree">
-                                        <label for="agree">Agree with the <a href="#">Terms and Conditions</a></label>
-                                    </div>
+                                        <option value="">Select Title</option>
+                                        <option value="brother">Brother</option>
+                                        <option value="sister">Sister</option>
+                                        <option value="pastor">Pastor</option>
+                                        <option value="deaconess">Deaconess</option>
+                                        <option value="deacon">Deacon</option>
+                                        <option value="saint">Saint</option>
+                                    </select>
+                                </p>
 
-                                    <!-- Form Group -->
-                                    <div class="form-group text-center nomargin">
-                                        <button type="submit" class="btn btn-blue btn-effect">create account</button>
-                                    </div>
+                                <p class="fieldset">
+                                    <input type="hidden" name="church_id" value="237">
+                                    <input type="hidden" name="customer_id" value="1">
 
-                                </div>
+
+                                </p>
+                                <label class="image-replace cd-username">Surname</label>
+                                <input class="full-width has-padding has-border" type="text" name="last_name" placeholder="Surname" autocomplete="off" required>
+
+                                </p>
+
+                                <p class="fieldset">
+                                    <label class="image-replace cd-username">First Name</label>
+                                    <input class="full-width has-padding has-border" type="text" name="first_name" placeholder="First Name" autocomplete="off" required>
+
+                                </p>
+                                <p class="fieldset">
+                                    <label class="image-replace cd-email" for="signup-email">E-mail</label>
+                                    <input name="email_address" class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" required>
+                                </p>
+
+                                <p class="fieldset">
+                                    <label class="image-replace cd-email" for="signup-email">Phone number</label>
+                                    <input name="phone_number" class="full-width has-padding has-border" id="signup-email" type="tel" placeholder="Phone number" required>
+                                </p>
+                                <p class="fieldset">
+                                    <label class="image-replace cd-password" for="signup-password">Password</label>
+                                    <input name="password" class="full-width has-padding has-border" id="signup-password" type="password" placeholder="Password">
+                                </p>
+                                <p class="fieldset">
+                                    <input type="checkbox" id="accept-terms" name="accept_terms" required>
+                                    <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
+                                </p>
+                                <p class="fieldset">
+                                    <button class="btn btn-blue btn-effect" type="submit" value="Create account" style="background-color: dodgerblue" >Create Account</button>
+                                </p>
+                                </form>
                             </div>
                         </div>
                         <!-- End of Tabpanel for Personal Account -->
 
-                        <!-- Start of Tabpanel for Company Account -->
-                        <div role="tabpanel" class="tab-pane" id="company">
-                            <div class="row">
 
-                                <!-- Start of the First Column -->
-                                <div class="col-md-6">
-
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>E-mail</label>
-                                        <input type="email" class="form-control">
-                                    </div>
-
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" class="form-control">
-                                    </div>
-
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Confirm Password</label>
-                                        <input type="password" class="form-control">
-                                    </div>
-                                </div>
-                                <!-- End of the First Column -->
-
-                                <!-- Start of the Second Column -->
-                                <div class="col-md-6">
-
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Full Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Company Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Website</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <!-- End of the Second Column -->
-                            </div>
-
-                            <div class="row mt20">
-                                <div class="col-md-12 text-center">
-
-                                    <!-- Form Group -->
-                                    <div class="form-group">
-                                        <input type="checkbox" id="agree2">
-                                        <label for="agree2">Agree with the <a href="#">Terms and Conditions</a></label>
-                                    </div>
-
-                                    <!-- Form Group -->
-                                    <div class="form-group nomargin">
-                                        <button type="submit" class="btn btn-blue btn-effect">create account</button>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- End of Tabpanel for Company Account -->
 
                     </div>
                     <!-- End of Tab Content -->

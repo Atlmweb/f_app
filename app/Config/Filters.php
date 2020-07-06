@@ -11,6 +11,7 @@ class Filters extends BaseConfig
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
 		'members'  => \App\Filters\Members::class,
+		'admin'    => \App\Filters\Admin::class,
 	];
 
 	// Always applied before every request
@@ -34,6 +35,7 @@ class Filters extends BaseConfig
 	// that they should run on, like:
 	//    'isLoggedIn' => ['before' => ['account/*', 'profiles/*']],
 	public $filters = [
-	    'members'=> ['before'=>['dashboard']]
+	    'members'=> ['before'=>['dashboard']],
+	    'admin'  => ['before'=>['new_service/*','service_list']]
     ];
 }
