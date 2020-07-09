@@ -5,38 +5,39 @@ use CodeIgniter\Model;
 class TransactionsModel extends Model
 {
     protected $table      = 'ff_transactions';
-    protected $primaryKey = 'txn_id';
+    protected $primaryKey = 'reference';
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
     protected $allowedFields = ['church_id','user_id','payment_date','cat_id','payment_mode','currency','amount','reference','description','citation','created_at',]; //customise
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
 
 //in_list[a,d,c]
+//'cash','cheque','pos','bank_transfer','kingspay','kind','online'
     protected $validationRules    = [
         'church_id'    => 'required|integer',
         'user_id'      => 'required|integer',
-        'payment_date' => 'required|valid-date',
+        'payment_date' => 'required|valid_date',
         'cat_id'       => 'required|integer',
-        'payment_mode' => 'required|in-list[offline,online]',
-        'currency'     => 'required|max-length[3]',
+        'payment_mode' => 'required|in_list[cash,cheque,pos,bank_transfer,kingspay,kind,online]',
+        'currency'     => 'required|max_length[3]',
         'amount'       => 'required|decimal',
-        'reference'    => 'required|max-length[100]',
-        'description'  => 'required|max-length[100]',
-        'citation'     => 'required|max-length[255]',
-        'created_at'   => 'required|valid-date',
+        'reference'    => 'max_length[100]',
+        'description'  => 'max_length[100]',
+        'citation'     => 'required|max_length[255]',
+        'created_at'   => 'required|valid_date',
 
     ];
 
     protected $validationMessages = [
-        'email'        => [
-            'is_unique' => 'Sorry. That email has already been taken. Please choose another.'
+        'reference'        => [
+            'required' => 'Reference is required and should be unique'
         ]
     ];
 }

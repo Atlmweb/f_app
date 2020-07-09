@@ -35,7 +35,9 @@ $routes->get('migrate', 'Migrate::index');
 $routes->post('login', 'Home::login');
 $routes->get('login', 'Home::login');
 $routes->get('register', 'Home::register');
+$routes->get('users', 'Home::users');
 $routes->post('register', 'Home::register');
+$routes->get('payments', 'Home::payments');
 $routes->get('logout', 'Home::logout');
 $routes->get('dashboard', 'Home::dashboard');
 $routes->get('new_service', 'Home::new_service');
@@ -50,11 +52,12 @@ $routes->get('thank_you', 'Home::thank_you');
 $routes->get('get_involved', 'Home::projects');
 $routes->get('get_involved/:any', 'Home::projects');
 $routes->get('videos', 'Home::videos');
-$routes->get('videos/:any', 'Home::videos');
+$routes->get('video/:any', 'Home::video');
 $routes->get('activate_account/:any', 'Home::activate_account');
 $routes->get('member', 'Member::dashboard');
 $routes->get('client', 'Client::dashboard');
 $routes->get('admin', 'Admin::dashboard');
+$routes->get('get_records','Home::get_records');
 
 /**
  * --------------------------------------------------------------------

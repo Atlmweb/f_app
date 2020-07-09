@@ -3,12 +3,14 @@
 
 use App\Models\ServicesModel;
 use App\Models\UsersModel;
+use App\Models\TransactionsModel;
 use Auth_lib;
 
 class Home extends BaseController
 {
     public $menus;
     public $church;
+
 
     public function __construct(){
         $this->session = \Config\Services::session();
@@ -27,7 +29,7 @@ class Home extends BaseController
 
             //load admin stuff
             if($_SESSION['logged_in']['level']==='ADMIN'){
-                $data['menu_items']['admin']    =  ['new_service','service_list','users','first_timers','new_converts','f_school'];
+                $data['menu_items']['admin']    =  ['new_service','service_list','users','payments','first_timers','new_converts','f_school'];
             }
 
 
@@ -37,15 +39,115 @@ class Home extends BaseController
 
     }
 
+    public function check_existing_record($ref){
+        $q = ask_db('txn_id','ff_transactions',['reference'=>"'$ref'"]);
+        return (!empty($q)) ? TRUE: FALSE;
+    }
+
+
+    public function get_records(){
+        $db = new TransactionsModel();
+        //specific to ID coming from live.christembassynungua.org
+        $match = [
+            '99999995' =>'1', //offering
+            '99999992' =>'2', //tithe
+            '99999991' =>'3', //first fruit
+            '9999996' =>'4', //special
+            '9999999' =>'5', //thanks giving
+            '1' =>'6', //healing school
+            '2' =>'7', //rhapsody
+            '20' =>'8', //programs
+            '14'=>'10', //bible
+            '16'=>'11', //LMAM
+            '5'=>'12',//Inner city
+            '10'=>'13',//LWsat
+            '38'=>'15', //CGI
+
+        ];
+
+        $data = [
+            'email'=> str_encode($_SESSION['logged_in']['email'])
+        ];
+        $res = $this->curl_post('https://loveworldims.org/grow/get_payment_history',$data);
+        $a = json_decode($res,1);
+
+        d($a);
+       
+
+        foreach($a as $key => $val){
+           $ref = ($val['ref']!== NULL && $val['ref'] !=='')? $val['ref'] : $val['descr'];
+            //insert record
+            $data = [
+                'church_id'    =>'237',
+                'user_id'      =>$_SESSION['logged_in']['user_id'],
+                'payment_date' =>$val['record_date'],
+                'cat_id'       =>$match[$val['id']],
+                'payment_mode' =>$val['payment_mode'],
+                'currency'     =>$val['cur'],
+                'amount'       =>$val['amt'],
+                'reference'    =>$ref,
+                'description'  =>$val['descr'],
+                'citation'     =>'Imported Txn',
+                'created_at'   =>date('Y-m-d H:i:s'),
+            ];
+
+            if($this->check_existing_record($ref)===FALSE) {
+
+                $db->insert($data);
+            }
+
+        }
+
+        return redirect('givings');
+
+    
+    }
+
+    
+
+    public function curl_post($url, $data,$json_encode_data = FALSE){
+        
+        $data = ($json_encode_data)?json_encode($data):$data;
+        
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+    		CURLOPT_URL => $url,
+    		CURLOPT_RETURNTRANSFER => true,
+    		CURLOPT_CUSTOMREQUEST => "POST",
+    		CURLOPT_POSTFIELDS => $data,
+    		
+    	));
+    	$response = curl_exec($curl);
+    	
+    	if($err = curl_error($curl)){
+    	    curl_close($curl);
+    	    return "CURL Error : ".$err;
+    	}else{
+        	curl_close($curl);
+        	return $response;
+        }
+    }
+
 
 
 
 
     public function thank_you(){
         $data = $this->menus;
-       // echo 'Thank you very much';
+        $data['title'] = 'Thank you very much for your seed sown!';
+        $data['table'] = '<p><h3> Thank you for being an extension of God’s outstretched arm to the Nations of the world. </h3></p>
+
+        <p>We pray that God will continue to give you seed to sow, bread for your food and He will surely multiply your seed sown and increase the fruits of your righteousness in Jesus Name.
+        (2 Corinthians 9:10). Amen</p> ';
+
+        //$arr = $_GET['resp'];
+        //$str = '{"id":285849711,"txRef":"42-2-Tithe-A Thousand folds in Jesus name amen","flwRef":"FLWMM15940268326029119","orderRef":"URF_MMGH_1594026832440_282535","paymentPlan":null,"paymentPage":null,"createdAt":"2020-07-06T09:13:52.000Z","amount":230,"charged_amount":230,"status":"successful","IP":"154.160.23.42","currency":"GHS","appfee":5.75,"merchantfee":0,"merchantbearsfee":1,"customer":{"id":215553564,"phone":"0544296060","fullName":"Brother Aaron Kutin","customertoken":null,"email":"officialkutin@gmail.com","createdAt":"2020-07-06T09:13:52.000Z","updatedAt":"2020-07-06T09:13:52.000Z","deletedAt":null,"AccountId":72294},"entity":{"id":"NO-ENTITY"},"event.type":"MOBILEMONEYGH_TRANSACTION"}';
+        
+
+        //d(json_decode($str,1));
+
         echo view('partials/header',$data);
-        echo view('pages/table');
+        echo view('partials/table',$data);
         echo view('partials/footer');
     }
 
@@ -88,6 +190,131 @@ class Home extends BaseController
         echo view('partials/footer');
     }
 
+
+    public function get_full_name($user_id){
+        $q = ask_db('title,first_name,last_name','ff_users',['user_id'=>"'$user_id'"]);
+
+        return isset($q[0]) ? $q[0]['title'].' '.$q[0]['first_name'].' '.$q[0]['last_name'] : 'Unknown Name';
+
+    }
+
+    public function get_giving_cat_name($cat_id){
+        $q = ask_db('cat_name','ff_giving_cat',['cat_id'=>"'$cat_id'"]);
+        return isset($q[0]) ? $q[0]['cat_name']: 'Unknown Category';
+    }
+
+
+    public function payments_table($user_id = NULL){
+        $table = new \CodeIgniter\View\Table();
+
+        $template = [
+            'table_open' => '<table class="table table-responsive table-striped table-bordered table-hover" id="example" >'
+        ];
+
+        $w = ($user_id !== NULL) ? ['user_id'=>$_SESSION['logged_in']['user_id']] : ['church_id'=>$_SESSION['logged_in']['church_id']];
+
+        $table->setTemplate($template);
+
+        if($user_id ===NULL){
+            $table->setHeading(['ID','Date','Name','Amount', 'Purpose','Ref','Citation']);
+        } else {
+            $table->setHeading(['ID','Date','Amount', 'Purpose','Citation']);
+        }
+
+
+        $q = ask_db('txn_id,cat_id,user_id,payment_date,amount,currency,reference,description,citation','ff_transactions',$w);
+
+        if(!empty($q)){
+            foreach ($q as $key => $val){
+                $desc = explode(',',$val['description']);
+                if($val['citation']=='Imported Txn'){
+                    $name = $this->get_full_name($val['user_id']);
+                    $purpose = $this->get_giving_cat_name($val['cat_id']);
+                } else {
+                    $name = ($user_id !== NULL) ?$_SESSION['logged_in']['name']: $desc[0];
+                    $purpose = $desc[1]??'';
+                }
+
+
+
+
+                $amount = $val['currency'].' '.$val['amount'];
+                $date = nice_date($val['payment_date']);
+
+                if($user_id ===NULL){
+                    $table->addRow($val['txn_id'],$date,$name,$amount,$purpose,$val['reference'],$val['citation']);
+                } else {
+                    $table->addRow($val['txn_id'],$date,$amount,$purpose,$val['citation']);
+                }
+
+            }
+
+        }
+
+        $s = $table->generate();
+
+        return $s;
+    }
+
+    public function payments(){
+
+
+
+        $m = $this->get_seed_summary('month',TRUE);
+        $y = $this->get_seed_summary('year',TRUE);
+
+        //month summary
+        $data['total_m'] = $m['total'];
+        $data['summary_m'] = $m['summary'];
+
+        //year summary
+        $data['total_y'] = $y['total'];
+        $data['summary_y'] = $y['summary'];
+
+
+
+        $data['table'] =  $this->payments_table();
+        $data['title']  = 'List of payments';
+
+
+        echo view('partials/header',$this->menus);
+        echo view('pages/seeds',$data);
+        echo view('partials/footer');
+    }
+
+    public function users(){
+        $table = new \CodeIgniter\View\Table();
+
+        $template = [
+            'table_open' => '<table class="table table-responsive table-striped table-bordered table-hover" id="example" >'
+        ];
+
+        $table->setTemplate($template);
+        $table->setHeading(['ID','Name','Email', 'Phone','Is active','Manage']);
+
+        $q = ask_db('user_id,title,last_name,first_name,email_address,phone_number,is_active','ff_users');
+
+        if(!empty($q)){
+            foreach ($q as $val){
+                $manage = manage_icons($val['user_id'],'register','delete','users');
+
+                $name = $val['title'].' '.$val['first_name'].' '.$val['last_name'];
+                $table->addRow($val['user_id'],$name,$val['email_address'],$val['phone_number'],$val['is_active'],$manage);
+            }
+        }
+
+        $data['table'] =  $table->generate();
+
+        $data['title']  = 'List of users';
+
+        echo view('partials/header',$this->menus);
+        echo view('partials/table', $data);
+        echo view('partials/footer');
+
+
+    }
+
+
     public function service_list(){
         $table = new \CodeIgniter\View\Table();
 
@@ -102,20 +329,24 @@ class Home extends BaseController
 
 
         foreach($q as $key => $val) {
-            $manage = anchor('new_service/'.$val['service_id'],'<i class="fa fa-pencil-square"></i>');
-            $manage .= ' | ';
-            $manage .= anchor('service_list/'.$val['service_id'],'<i class="fa fa-trash"></i>');
+
+            $manage = manage_icons($val['service_id'],'new_service','delete_service');
             $table->addRow($val['service_id'], $val['service_title'], $val['service_date'], $val['stream_url'],$manage);
         }
 
 
 
+
+
         $data['table'] =  $table->generate();
+        $data['title'] = 'Service list';
 
         echo view('partials/header',$this->menus);
         echo view('partials/table', $data);
         echo view('partials/footer');
     }
+
+
 
 
     public function projects(){
@@ -195,7 +426,8 @@ class Home extends BaseController
         $amt = $arr['tx']['amount'];
         $ref = $arr['tx']['flwRef'];
         $name = $arr['tx']['customer.fullName'];
-        $name .= ','.$i[2];
+        $ds = explode('_',$i[2]);
+        $name .= ','.$ds[0];
 
         if($arr['respcode']==='00' || $arr['tx']['status']==='successful') {
 
@@ -209,7 +441,7 @@ class Home extends BaseController
                 'amount'       =>$amt,
                 'reference'    =>$ref,
                 'description'  =>$name,
-                'citation'     =>$i[3],
+                'citation'     =>$ds[1],
                 'created_at'   =>date('Y-m-d H:i:s'),
             ];
 
@@ -272,6 +504,10 @@ class Home extends BaseController
         $data['total_y'] = $y['total'];
         $data['summary_y'] = $y['summary'];
 
+        $data['title'] = 'My Seeds';
+        $data['table'] = $this->payments_table($_SESSION['logged_in']['user_id']);
+
+
 
 
         echo view('partials/header',$this->menus);
@@ -305,7 +541,7 @@ class Home extends BaseController
 
     public function dashboard(){
         $where = ['church_id'=>$this->church];
-        $q = ask_db('service_id,service_title, service_date, stream_url,service_notes','ff_services',$where,1,'','service_date');
+        $q = ask_db('service_id,service_title, service_date, stream_url,service_notes','ff_services',$where,1,'','updated_at');
 
 
 
@@ -328,18 +564,38 @@ class Home extends BaseController
         echo view('partials/footer',$data);
     }
 
+
+    public function video(){
+        $uri = service('uri');
+        $id = $uri->getsegment('2');
+
+        $where = ['service_id'=>$id];
+        $data = $this->menus;
+        $q = ask_db('service_id,service_title, service_date, stream_url,service_notes','ff_services',$where);
+
+        $data['stream_url'] = youtube($q[0]['stream_url']);
+        $data['service_notes'] = $q[0]['service_notes'];
+
+        echo view('partials/header',$data);
+        echo view('pages/video_notes',$data);
+        echo view('partials/footer',$data);
+
+    }
+
+
+
 	public function index()
 	{
 
-        $q = ask_db('service_id,service_title, service_date, stream_url,service_notes','ff_services',[],'','','service_date');
+        $q = ask_db('service_id,service_title, DATE(service_date) as service_date, stream_url,service_notes','ff_services',[],'','','updated_at');
         $data['stream_url'] = youtube($q[0]['stream_url']);
+        $data['title'] = $_SESSION['logged_in']['name']?? NULL;
 
-        $date = new \DateTime(date('Y-m-d'));
-        $day = $date->format('D');
+
 
         echo view('partials/header.php',$this->menus);
         //no slider on service days
-        if($day ==='Wed' || $day === 'Fri' || $day === 'Sun'){
+        if($q[0]['service_date'] === date('Y-m-d')){
             echo view('pages/live_service.php',$data);
             echo view('pages/home.php');
         } else {
@@ -368,7 +624,8 @@ class Home extends BaseController
 
                     return redirect('dashboard');
                 } else {
-                    $_SESSION['error']='Login error, you need to re-register with the same email address if you had an account before';
+                    $_SESSION['error']='Login error, invalid username and password combination';
+                    return redirect('login');
                 }
             } else {
                 $_SESSION['error'] = lang('User account does not exist');
