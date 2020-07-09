@@ -27,7 +27,7 @@
                         <div class="embed-responsive embed-responsive-16by9">
 
 
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/gbqMjW_Fr2I?>?rel=0" allowfullscreen=""></iframe>
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/gbqMjW_Fr2I?rel=0" allowfullscreen=""></iframe>
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Sow a seed</h4>
-            </div>
+            </div>s
             <div class="modal-body">
                 <?php echo $this->include('pages/giving_form_guest_pp')?>
             </div>

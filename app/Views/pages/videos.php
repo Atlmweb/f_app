@@ -41,7 +41,7 @@
 
                         <!-- Post Detail -->
                         <div class="blog-post-title pt30 pb10">
-                            <h3><a href="#"><?=$val['title']?? 'Partner with us'?></a></h3>
+                            <h3><a href="video/<?=$val['service_id']?>"><?=$val['title']?? 'Partner with us'?></a></h3>
                             <p class="nomargin pt5"><span class="blog-date"><?=nice_date($val['service_date']) ?? date('Y-m-d')?></span></p>
                         </div>
                         <div class="blog-post-details pt20">

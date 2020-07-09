@@ -5,7 +5,7 @@
         <input type="hidden" id="church_id" name="church_id" value="237">
         <input type="hidden" id="user_id" name="user_id" value="1">
 
-        <input type="hidden" id="result" name="result" value="https://live.christembassynungua.org/home/thank_you">
+        <input type="hidden" id="result" name="result" value="https://live.christembassynungua.org/home/process_seeds">
         <input type="hidden" id="ref" name="result" value="1">
 
 
@@ -42,9 +42,7 @@
 
     <p class="fieldset">
 
-        <?php
-        $q = ask_db('cat_id,cat_name','ff_giving_cat');
-        ?>
+        
         <select id="giving_cat_id" name="title" class="selectpicker bootstrap-select table-bordered" required>
 
             <option value="project_perfection">Project Perfection</option>

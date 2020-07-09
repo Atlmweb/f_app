@@ -40,22 +40,14 @@
                     <div class="row mt15" style="margin-left: 2px; margin-right: 2px;">
 
                         <div class="blog-post-title pt30 pb20 text-center">
-                            <h3><a href="#">Invite Someone for this service </a></h3>
+                            <h3><a href="#">Share this service with someone </a></h3>
                             <?php echo share('https://live.christembassynungua.org',lang('Front.join_service'));?>
                         </div>
 
-                        <div>
-                            <h5 class="element text-center">Give as <?=$title ?? 'a guest. If you are a returning giver, kindly create an account and login before you give' ?>. </h5>
+                        <div class="pt40" style="margin-left: 20px; margin-right: 20px;">
+                            <h5>Service Notes</h5>
 
-
-                            <?php
-                            if(isset($_SESSION['logged_in'])){
-                                 echo $this->include('pages/giving_form');
-                            } else {
-                                 echo $this->include('pages/giving_form_guest');
-                            }?>
-
-
+                            <?=$service_notes?>
                         </div>
 
                     </div>

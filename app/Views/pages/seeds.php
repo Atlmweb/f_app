@@ -9,7 +9,9 @@
 
             <!-- Column -->
             <div class="col-md-2 col-sm-3 col-xs-12">
-                <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-blue btn-effect pull-right mt15"><i class="fa fa-pagelines"></i>SOW A SEED</a>
+
+                <?php echo anchor('get_records','<i class="fa fa-refresh"> Sync Records</i>',['class'=>'btn btn-red btn-effect pull-right mt15']);?>
+                <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-blue btn-effect pull-right mt15"><i class="fa fa-pagelines"></i> SOW A SEED</a>
             </div>
 
         </div>
@@ -24,7 +26,7 @@
 
 
             <!-- Start of 1st Pricing Table -->
-            <div class="col-md-6 col-xs-12 mt80">
+            <div class="col-md-12 col-xs-12 mt80">
                 <div class="pricing-table shadow-hover" id="popular">
 
                     <!-- Pricing Header -->
@@ -35,7 +37,7 @@
                     <!-- Pricing -->
                     <div class="pricing">
                         <span class="currency">GHS</span>
-                        <span class="amount"><?=$total_m?></span>
+                        <span class="amount"><?=number_format($total_m,2)?></span>
                         <span class="month">month</span>
                     </div>
 
@@ -64,18 +66,18 @@
 
 
             <!-- Start of 2nd Pricing Table -->
-            <div class="col-md-6 col-xs-12 mt80">
+            <div class="col-md-12 col-xs-12 mt80">
                 <div class="pricing-table shadow-hover">
 
                     <!-- Pricing Header -->
                     <div class="pricing-header">
-                        <h2>Year summary </h2>
+                        <h2>Summary </h2>
                     </div>
 
                     <!-- Pricing -->
                     <div class="pricing">
                         <span class="currency">GHS</span>
-                        <span class="amount"><?=$total_y?></span>
+                        <span class="amount"><?=number_format($total_y,2)?></span>
                         <span class="month">year</span>
                     </div>
 
@@ -85,7 +87,7 @@
                             <?php
                             if(!empty($summary_y)){
                                 foreach ($summary_y as $key => $val){
-                                    echo "<li>{$val['cat_name']} <span class=\"pull-right\">{$val['currency']} {$val['tot']}</span></li><hr/>";
+                                    echo "<li><span class=\"float-left\">{$val['cat_name']}</span> <span class=\"pull-right\">{$val['currency']} {$val['tot']}</span></li><hr/>";
                                 }
                             }
 
@@ -105,16 +107,13 @@
 
                     <!-- Pricing Header -->
                     <div class="pricing-header">
-                        <h2>All time giving (Prior to 28th June 2020)</h2>
+                        <h2>Payment History</h2>
                     </div>
 
                     <!-- Pricing -->
                     <div class="pricing">
+                    <?php echo isset($table) ? $table: 'History not available'?>
 
-                        <h3>Records  be made available soon</h3>
-<!--                        <span class="currency">$</span>-->
-<!--                        <span class="amount">49</span>-->
-<!--                        <span class="month">year</span>-->
                     </div>
 
                     <!-- Pricing Body -->

@@ -29,6 +29,9 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,700,800|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+
     <!-- CSS links -->
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>/css/font-awesome.min.css">

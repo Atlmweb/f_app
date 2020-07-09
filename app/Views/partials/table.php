@@ -29,8 +29,8 @@
                     <!-- Personal Account Tab -->
                     <li role="presentation" class="active">
                         <a href="#personal" aria-controls="personal" role="tab" data-toggle="tab" aria-expanded="true">
-                            <h6>Church services</h6>
-                            <span>Manage church services</span>
+                            <h6><?=$title?></h6>
+
                         </a>
                     </li>
 
