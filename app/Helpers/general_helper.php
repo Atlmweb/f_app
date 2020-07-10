@@ -54,7 +54,7 @@ if(!function_exists('make_menu')){
 
                 foreach ($val as $k => $v){
                     $vals = lang("Front.$v");
-                    $str .= '<li><a href="'.$v.'">'.$vals.'</a></li>';
+                    $str .= '<li><a href="'.base_url().'/'.$v.'">'.$vals.'</a></li>';
                 }
                 $str .= '</ul></li>';
 
@@ -62,7 +62,7 @@ if(!function_exists('make_menu')){
 
                 $vals = lang("Front.$val");
 
-                $str .='<li class="simple-menu"><a href="'.$val.'" role="button">'.$vals.'</a></li>';
+                $str .='<li class="simple-menu"><a href="'.base_url().'/'.$val.'" role="button">'.$vals.'</a></li>';
             }
         }
 
@@ -158,6 +158,20 @@ if(!function_exists('empty_field_values')){
     }
 }
 
+if(!function_exists('manage')){
+    function manage_icons($id,$edit_uri, $delete_uri='', $details_uri=''){
+     $str = '';
+     $str .= anchor("$edit_uri/$id",'<i class="fa fa-edit"></i>');
+     $str .= ($delete_uri !=='') ? ' | '.anchor("$delete_uri/$id",'<i class="fa fa-trash"></i>'): '';
+     $str .= ($details_uri !=='') ? ' | '.anchor("$details_uri/$id",'<i class="fa fa-search"></i>'): '';
+    //TODO add modal
+
+        return $str;
+    }
+
+
+}
+
 /*
  * Produces a nice Date of the format Monday, 29 Aug 2017
  */
@@ -221,6 +235,23 @@ if(!function_exists('time_diff')) {
             return ($year >1) ? $year.' '.lang('years_ago'): $year.' '.lang('year_ago');
         }
 
+    }
+}
+
+if(!function_exists('str_encode')){
+    function str_encode($raw){//string to be encoded
+        $enc = new Encode_lib();
+        $s = $enc->encode($raw);
+        return $s;
+    }
+}
+
+if(!function_exists('str_decode')){
+    function str_decode($encoded_string){
+        $enc = new Encode_lib();
+        $s = $enc->decode($encoded_string);
+
+        return $s;
     }
 }
 

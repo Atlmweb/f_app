@@ -40,7 +40,8 @@ return [
     'first_timers'  => 'First timers',
     'new_converts'  => 'New converts',
     'f_school'      => 'Foundation school',
-    'admin'         => 'Admin'
+    'admin'         => 'Admin',
+    'payments'      => 'Payments'
 
 
 ];
